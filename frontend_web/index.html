@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Price Check — Amazon Listing Appraiser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <span class="eyebrow">Listing Appraisal Desk</span>
+      <h1>Price Check</h1>
+    </div>
+    <div class="masthead-right">
+      <span class="model-badge">TF-IDF × EfficientNet-B0</span>
+      <span class="model-badge">LightGBM + CatBoost</span>
+    </div>
+  </header>
+
+  <main class="desk">
+
+    <section class="intake" aria-label="Listing intake form">
+      <h2 class="section-label">01 — Listing details</h2>
+
+      <form id="predict-form">
+        <div class="field">
+          <label for="item_name">Item name <span class="req">*</span></label>
+          <input type="text" id="item_name" name="item_name" placeholder="Wireless Bluetooth Headphones" required />
+        </div>
+
+        <div class="field">
+          <label for="brand_name">Brand name</label>
+          <input type="text" id="brand_name" name="brand_name" placeholder="Leave blank to infer from item name" />
+        </div>
+
+        <div class="field">
+          <label for="bullet_points">Bullet points</label>
+          <textarea id="bullet_points" name="bullet_points" rows="4" placeholder="One per line —&#10;40 hour battery life&#10;Active noise cancellation&#10;Bluetooth 5.3"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="product_description">Product description</label>
+          <textarea id="product_description" name="product_description" rows="4" placeholder="Premium over-ear headphones with deep bass and plush ear cushions..."></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="value">Value</label>
+            <input type="number" id="value" name="value" step="any" placeholder="e.g. 1" />
+          </div>
+          <div class="field">
+            <label for="unit">Unit</label>
+            <input type="text" id="unit" name="unit" placeholder="count / gram / ounce" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Product image <span class="req">*</span></label>
+          <div class="image-tabs">
+            <button type="button" class="tab-btn active" data-tab="upload">Upload file</button>
+            <button type="button" class="tab-btn" data-tab="url">Image URL</button>
+          </div>
+          <div class="image-input active" data-panel="upload">
+            <input type="file" id="image_file" name="image" accept="image/*" />
+          </div>
+          <div class="image-input" data-panel="url">
+            <input type="text" id="image_url" name="image_url" placeholder="https://...jpg" />
+          </div>
+        </div>
+
+        <button type="submit" class="stamp-btn" id="submit-btn">
+          <span class="stamp-btn-text">Appraise Listing</span>
+        </button>
+
+        <p class="form-error" id="form-error"></p>
+      </form>
+    </section>
+
+    <section class="receipt-bay" aria-label="Appraisal result">
+      <h2 class="section-label">02 — Appraisal</h2>
+
+      <div class="receipt-holder">
+        <div class="receipt" id="receipt">
+          <div class="receipt-idle" id="receipt-idle">
+            <p>No listing appraised yet.</p>
+            <p class="dim">Fill in the form and print an estimate.</p>
+          </div>
+
+          <div class="receipt-loading hidden" id="receipt-loading">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <p>Running the numbers…</p>
+          </div>
+
+          <div class="receipt-result hidden" id="receipt-result">
+            <p class="r-line r-header">PRICE ESTIMATE</p>
+            <p class="r-line r-dashed">------------------------------</p>
+            <p class="r-line r-item" id="r-item-name">ITEM</p>
+            <p class="r-line r-item dim" id="r-brand-name">BRAND</p>
+            <p class="r-line r-dashed">------------------------------</p>
+            <p class="r-line r-price-label">ESTIMATED PRICE</p>
+            <p class="r-price" id="r-price">$0.00</p>
+            <p class="r-line r-dashed">------------------------------</p>
+            <p class="r-line r-sub">LightGBM &nbsp;<span id="r-lgb">$0.00</span></p>
+            <p class="r-line r-sub">CatBoost &nbsp;<span id="r-cat">$0.00</span></p>
+            <p class="r-line r-dashed">------------------------------</p>
+            <p class="r-line r-footer">thank you for shopping</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <span id="backend-status">checking backend…</span>
+  </footer>
+
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
