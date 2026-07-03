@@ -51,8 +51,8 @@ venv.bak/
 *.log
 
 # Model files (optional - uncomment if models are large)
-models/*.pkl
-models/*.cbm
+# models/*.pkl
+# models/*.cbm
 
 # Data files
 *.csv
