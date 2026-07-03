@@ -1,0 +1,12 @@
+**/__pycache__/
+**/*.pyc
+.git
+.gitignore
+frontend/
+frontend-web/
+*.md
+render.yaml
+backend/Procfile
+backend/runtime.txt
+backend/install_torch_cpu.sh
+export_missing_artifact.py
