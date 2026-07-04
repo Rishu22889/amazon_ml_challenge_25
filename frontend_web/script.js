@@ -111,7 +111,17 @@ form.addEventListener("submit", async (e) => {
     document.getElementById("r-price").textContent = formatMoney(data.predicted_price);
     document.getElementById("r-lgb").textContent = formatMoney(data.lgb_price);
     document.getElementById("r-cat").textContent = formatMoney(data.catboost_price);
+    
+    const receiptImage = document.getElementById("r-product-image");
 
+    if (activeTab === "url") {
+        receiptImage.src = imageUrl;
+        receiptImage.style.display = "block";
+    } else {
+        const file = imageFileInput.files[0];
+        receiptImage.src = URL.createObjectURL(file);
+        receiptImage.style.display = "block";
+    }
     showState("result");
   } catch (err) {
     errorEl.textContent = err.message || "Something went wrong. Is the backend running?";
@@ -120,3 +130,4 @@ form.addEventListener("submit", async (e) => {
     submitBtn.disabled = false;
   }
 });
+
